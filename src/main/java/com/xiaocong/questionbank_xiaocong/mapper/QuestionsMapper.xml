@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xiaocong.questionbank_xiaocong.mapper.QuestionsMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.xiaocong.questionbank_xiaocong.model.po.Questions">
+        <id column="id" property="id"/>
+        <result column="A" property="A"/>
+        <result column="B" property="B"/>
+        <result column="C" property="C"/>
+        <result column="D" property="D"/>
+        <result column="state" property="state"/>
+        <result column="result" property="result"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id
+        ,A,B,C,D,state,result
+    </sql>
+
+    <update id="updateAll">
+        update questions set state = 1;
+    </update>
+
+</mapper>

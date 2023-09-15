@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.5,minimum-scale=1.0,
+		maximum-scale=1.0,
+		user-scalable=no">
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="../css/index.css">
+    <!-- 引入Vue.js -->
+    <script src="../js/vue.js"></script>
+    <!-- 引入组件库 -->
+    <script src="../js/index.js"></script>
+    <script src="../js/vue-route.js"></script>
+    <title>无序刷题</title>
+</head>
+<body>
+<div id="container">
+    <p id="title">{{content.title}}</p>
+    <div style="width: auto;background-color: aliceblue;margin-top: 6px;display: flex;">
+        <input id="a" type="radio" name="option" value="A" style="margin-right: 10px">
+        <label for="a" style="width:auto;display:inline-block;height: auto">
+            {{content.a}}
+        </label>
+    </div>
+    <div style="width: auto;background-color: aliceblue;margin-top: 6px;display: flex;">
+        <input id="b" type="radio" name="option" value="A" style="margin-right: 10px">
+        <label for="b" style="width: auto;display:inline-block;height: auto">
+        {{content.b}}
+        </label>
+    </div>
+    <div style="width: auto;background-color: aliceblue;margin-top: 6px;display: flex;">
+        <input id="c" type="radio" name="option" value="A" style="margin-right: 10px">
+        <label for="c" style="width: auto;display:inline-block;height: auto">
+            {{content.c}}
+        </label>
+    </div>
+
+    <div style="width: auto;background-color: aliceblue;margin-top: 6px;display: flex;">
+        <input id="d" type="radio" name="option" value="A" style="margin-right: 10px">
+        <label for="d" style="width: auto;display:inline-block;height: auto">
+            {{content.d}}
+        </label>
+    </div>
+    <el-button type="" style="margin-top: 15px"><a href="../index.html" target="_blank" style="text-decoration: none;">首页</a></el-button>
+    <el-button type="primary" style="margin-top: 15px" @click=nextQuestion()>下一题</el-button>
+</div>
+
+</body>
+<script>
+    var vm = new Vue({
+        el: "#container",
+        data: {
+            option: "",
+            content: {}
+        },
+        created() {
+
+        },
+        methods: {
+            nextQuestion() {
+
+            }
+        }
+    });
+
+
+</script>
+
+<style>
+    body {
+        margin-left: 7px;
+        font-size: 16px;
+    }
+
+    div {
+        /*border: 1px solid #ddd;*/
+        word-wrap: break-word; /*超出部分自动换行*/
+        border-radius: 16px;
+    }
+
+    #title {
+        font-size: 20px;
+    }
+</style>
+</html>

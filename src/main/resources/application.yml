@@ -1,0 +1,16 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /xiaocong
+    encoding:
+      force-response: true
+      charset: UTF-8
+spring:
+  datasource:
+    druid:
+      url: jdbc:mysql://175.178.151.17:3306/question_blank?serverTimezone=UTC&userUnicode=true&useSSL=false
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      username: root
+      password: a123
+
+

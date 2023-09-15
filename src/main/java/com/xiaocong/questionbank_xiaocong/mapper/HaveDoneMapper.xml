@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xiaocong.questionbank_xiaocong.mapper.HaveDoneMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.xiaocong.questionbank_xiaocong.model.po.HaveDone">
+        <id column="id" property="id"/>
+       <result column="questions_id" property="questionId"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id
+        ,questions_id
+    </sql>
+
+    <delete id="removeAll">
+        delete from have_done;
+    </delete>
+
+</mapper>
