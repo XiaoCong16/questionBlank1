@@ -41,7 +41,7 @@
     <el-button type="" style="margin-top: 15px"><a href="../index.html" target="_blank" style="text-decoration: none;">首页</a>
     </el-button>
     <el-button type="primary" style="margin-top: 15px" @click=commit()>提交</el-button>
-    <el-input v-model="str"></el-input>
+    <el-input v-model="str.str"></el-input>
     <el-button type="primary" style="margin-top: 15px" @click=parse()>提交</el-button>
 </div>
 
@@ -50,7 +50,9 @@
     var vm = new Vue({
         el: "#container",
         data: {
-            str:"",
+            str: {
+                str:""
+            },
             option: "",
             content: {
                 id: "",
@@ -74,7 +76,9 @@
                 })
             },
             parse(){
-                axios.post('/xiaocong/question/parseString/'+this.str).then((res) => {
+                axios.post('/xiaocong/question/parseString',
+                    this.str
+                ).then((res) => {
                     console.log(this.str);
                     this.content.title = res.data.result.title;
                     this.content.A = res.data.result.a;

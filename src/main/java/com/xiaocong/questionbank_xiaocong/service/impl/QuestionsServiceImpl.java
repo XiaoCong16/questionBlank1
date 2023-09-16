@@ -36,11 +36,20 @@ public class QuestionsServiceImpl implements QuestionsService {
     public RestResponse findAllWrong() {
 //        查找出所有错题
         List<Wrong> wrongList = wrongMapper.selectList(null);
+        if (wrongList.size() <= 0) {
+            return null;
+        }
         List<Integer> questionsIds = new ArrayList<>();
 //        将错题关联的问题id查询出来
         for (Wrong wrong : wrongList) {
             questionsIds.add(wrong.getQuestionsId());
         }
+        questionsIds.sort(new Comparator<Integer>() {
+            @Override
+            public int compare(Integer o1, Integer o2) {
+                return o1-o2;
+            }
+        });
         List<Questions> questions = questionsMapper.selectBatchIds(questionsIds);
         return new RestResponse(questions);
     }
@@ -90,9 +99,18 @@ public class QuestionsServiceImpl implements QuestionsService {
         questionsQueryWrapper.eq("id", questionId);
         Questions questions = questionsMapper.selectOne(questionsQueryWrapper);
         if (questions != null && !StringUtils.isEmpty(result)) {
+//            如果做对了
             if (questions.getResult().equals(result)) {
                 questions.setState(2);
                 questionsMapper.updateById(questions);
+                HaveDone haveDone = new HaveDone();
+                haveDone.setQuestionsId(questionId);
+                haveDoneMapper.insert(haveDone);
+            } else {
+//                做错了
+                Wrong wrong = new Wrong();
+                wrong.setQuestionsId(questionId);
+                wrongMapper.insert(wrong);
             }
         }
         return new RestResponse(questions.getResult());
@@ -103,7 +121,10 @@ public class QuestionsServiceImpl implements QuestionsService {
         //        查找出所有错题
         List<HaveDone> haveDones = haveDoneMapper.selectList(null);
         List<Integer> questionsIds = new ArrayList<>();
-//        将错题关联的问题id查询出来
+        if (haveDones.size() ==0){
+            return null;
+        }
+        //        将错题关联的问题id查询出来
         for (HaveDone haveDone : haveDones) {
             questionsIds.add(haveDone.getQuestionsId());
         }
@@ -132,7 +153,7 @@ public class QuestionsServiceImpl implements QuestionsService {
         int indexC = str.indexOf("C.");
         int indexD = str.indexOf("D.");
         String title = str.substring(0, index0);
-        String result = str.substring(index0+2,index0+3);
+        String result = str.substring(index0 + 2, index0 + 3);
         String A = str.substring(indexA, indexB);
         String B = str.substring(indexB, indexC);
         String C = str.substring(indexC, indexD);
@@ -148,5 +169,14 @@ public class QuestionsServiceImpl implements QuestionsService {
         System.out.println(index0);
         System.out.println(questions);
         return new RestResponse(questions);
+    }
+
+    @Override
+    public RestResponse removeWrong(Integer questionsId) {
+        QueryWrapper queryWrapper = new QueryWrapper();
+        queryWrapper.eq("questions_id", questionsId);
+        wrongMapper.delete(queryWrapper);
+        questionsMapper.updateQuestion(questionsId);
+        return new RestResponse();
     }
 }

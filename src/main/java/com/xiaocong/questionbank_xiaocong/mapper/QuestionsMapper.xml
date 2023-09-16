@@ -22,5 +22,8 @@
     <update id="updateAll">
         update questions set state = 1;
     </update>
+    <update id="updateQuestion">
+        update questions set state = 2 where id = #{questionsId};
+    </update>
 
 </mapper>

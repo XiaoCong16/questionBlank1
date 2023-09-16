@@ -46,4 +46,6 @@ public interface QuestionsService {
     public RestResponse addQuestions(Questions questions);
 
     public RestResponse parseString(String str);
+
+    RestResponse removeWrong(Integer questionsId);
 }

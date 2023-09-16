@@ -9,9 +9,83 @@
     <script src="../js/vue.js"></script>
     <!-- 引入组件库 -->
     <script src="../js/index.js"></script>
+    <script src="../js/vue-route.js"></script>
+    <script src="../js/axios.min.js"></script>
+    <script src="../js/jquery.min.js"></script>
     <title>正确的题目</title>
 </head>
 <body>
+<div id="container">
 
+    <el-button type="" style="margin-top: 15px"><a href="../index.html" target="_blank" style="text-decoration: none;">首页</a></el-button>
+    <h1 v-if="tableData == null">没有</h1>
+    <div v-for="(content,index) in this.tableData" :key="content.id">
+        <div style="width: auto;margin-top: 6px;display: flex;">
+            <label style="width:auto;display:inline-block;height: auto">
+                {{content.title}}
+            </label>
+        </div>
+        <div style="width: auto;margin-top: 6px;display: flex;">
+
+            <label style="width:auto;display:inline-block;height: auto">
+                {{content.a}}
+            </label>
+        </div>
+        <div style="width: auto;margin-top: 6px;display: flex;">
+
+            <label style="width: auto;display:inline-block;height: auto">
+                {{content.b}}
+            </label>
+        </div>
+        <div style="width: auto;margin-top: 6px;display: flex;">
+
+            <label style="width: auto;display:inline-block;height: auto">
+                {{content.c}}
+            </label>
+        </div>
+
+        <div style="width: auto;margin-top: 6px;display: flex;">
+
+            <label style="width: auto;display:inline-block;height: auto">
+                {{content.d}}
+            </label>
+        </div>
+        <el-tag type="success">正确答案为:{{content.result}}</el-tag>
+
+<!--        <el-button-->
+<!--                @click.native.prevent="deleteRow(content.id)"-->
+<!--                type="text"-->
+<!--                size="small">-->
+<!--            移除-->
+<!--        </el-button>-->
+        <br>
+    </div>
+
+</div>
 </body>
+
+<script>
+    var vm = new Vue({
+        el: "#container",
+        data: {
+            tableData: []
+        },
+        created() {
+            this.findHaveDoneQuestions();
+        },
+        methods: {
+            findHaveDoneQuestions() {
+                axios.get('/xiaocong/question/findHaveDone').then((res) => {
+                    this.tableData = res.data.result;
+                })
+                console.log(this.tableData)
+            },
+            // deleteRow(id) {
+            //     axios.get('/xiaocong/question/removeWrong/'+id).then((res) => {
+            //         this.$message.success("删除成功")
+            //     })
+            // }
+        }
+    });
+</script>
 </html>

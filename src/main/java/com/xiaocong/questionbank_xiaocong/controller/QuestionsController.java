@@ -25,7 +25,6 @@ public class QuestionsController {
     @GetMapping(value = "/question/findQuestionByNext/{questionsId}", produces = "application/json; charset=utf-8")
     public RestResponse findQuestionByNext(@PathVariable("questionsId") Integer questionId) {
         RestResponse result1 = questionsService.findQuestionByNext(questionId);
-
         return result1;
     }
 
@@ -38,10 +37,30 @@ public class QuestionsController {
         return result1;
     }
 
-    @PostMapping(value = "/question/parseString/{str}")
-    public RestResponse parseString(@PathVariable("str") String str) {
+    @PostMapping(value = "/question/parseString")
+    public RestResponse parseString(@RequestBody Map<String,String> map) {
+//        System.out.println(map);
+        String str = map.get("str");
         return questionsService.parseString(str);
     }
 
+    @GetMapping("/question/findAllWrong")
+    public RestResponse findAllWrong(){
+        return questionsService.findAllWrong();
+    }
+
+    @GetMapping("/question/removeWrong/{questionsId}")
+    public RestResponse removeWrong(@PathVariable("questionsId")Integer questionsId){
+        return questionsService.removeWrong(questionsId);
+    }
+
+    @GetMapping("/question/resettingAll")
+    public RestResponse resettingAll(){
+        return questionsService.resettingAll();
+    }
+    @GetMapping("/question/findHaveDone")
+    public RestResponse findHaveDone(){
+        return questionsService.findHaveDone();
+    }
 
 }

@@ -7,4 +7,6 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface QuestionsMapper extends BaseMapper<Questions> {
     void updateAll();
+
+    void updateQuestion(Integer questionsId);
 }
