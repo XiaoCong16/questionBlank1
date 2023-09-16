@@ -77,7 +77,7 @@ public class QuestionsServiceImpl implements QuestionsService {
         Questions questions = questionsMapper.selectOne(questionsQueryWrapper);
         if (questions != null) {
             questions.setResult("");
-        }else {
+        } else {
             questions = new Questions();
         }
 
@@ -117,5 +117,32 @@ public class QuestionsServiceImpl implements QuestionsService {
         wrongMapper.removeAll();
         haveDoneMapper.removeAll();
         return new RestResponse();
+    }
+
+    @Override
+    public RestResponse addQuestions(Questions questions) {
+        questionsMapper.insert(questions);
+        return new RestResponse();
+    }
+
+    public RestResponse parseString(String str) {
+        int indexA = str.indexOf("A.");
+        int indexB = str.indexOf("B.");
+        int indexC = str.indexOf("C.");
+        int indexD = str.indexOf("D.");
+        String title = str.substring(0, indexA);
+        String A = str.substring(indexA, indexB);
+        String B = str.substring(indexB, indexC);
+        String C = str.substring(indexC, indexD);
+        String D = str.substring(indexD);
+        Questions questions = new Questions();
+        questions.setTitle(title);
+        questions.setA(A);
+        questions.setB(B);
+        questions.setC(C);
+        questions.setD(D);
+        System.out.println(str);
+//        System.out.println(str);
+        return new RestResponse(questions);
     }
 }

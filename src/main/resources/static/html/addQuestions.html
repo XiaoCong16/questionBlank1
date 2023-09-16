@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.5,minimum-scale=1.0,
+		maximum-scale=1.0,
+		user-scalable=no">
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="../css/index.css">
+    <!-- 引入Vue.js -->
+    <script src="../js/vue.js"></script>
+    <!-- 引入组件库 -->
+    <script src="../js/index.js"></script>
+    <script src="../js/vue-route.js"></script>
+    <script src="../js/axios.min.js"></script>
+    <script src="../js/jquery.min.js"></script>
+    <title>添加题目</title>
+</head>
+<body>
+<div id="container">
+    <el-form ref="content" :model="content" label-width="100px">
+        <el-form-item label="标题">
+            <el-input v-model="content.title"></el-input>
+        </el-form-item>
+        <el-form-item label="A">
+            <el-input v-model="content.A"></el-input>
+        </el-form-item>
+        <el-form-item label="B">
+            <el-input v-model="content.B"></el-input>
+        </el-form-item>
+        <el-form-item label="C">
+            <el-input v-model="content.C"></el-input>
+        </el-form-item>
+        <el-form-item label="D">
+            <el-input v-model="content.D"></el-input>
+        </el-form-item>
+        <el-form-item label="结果">
+            <el-input v-model="content.result"></el-input>
+        </el-form-item>
+    </el-form>
+    <el-button type="" style="margin-top: 15px"><a href="../index.html" target="_blank" style="text-decoration: none;">首页</a>
+    </el-button>
+    <el-button type="primary" style="margin-top: 15px" @click=commit()>提交</el-button>
+    <el-input v-model="str"></el-input>
+    <el-button type="primary" style="margin-top: 15px" @click=parse()>提交</el-button>
+</div>
+
+</body>
+<script>
+    var vm = new Vue({
+        el: "#container",
+        data: {
+            str:"",
+            option: "",
+            content: {
+                id: "",
+                title: "",
+                A: "",
+                B: "",
+                C: "",
+                D: "",
+                state: "",
+                result: ""
+            }
+        },
+        created() {
+
+        },
+        methods: {
+            commit() {
+                // console.log(this.content);
+                axios.post('/xiaocong/question/addQuestions', this.content).then((res) => {
+                    this.$message.success("Ok");
+                })
+            },
+            parse(){
+                axios.post('/xiaocong/question/parseString/'+this.str).then((res) => {
+                    console.log(this.str);
+                    this.content.title = res.data.result.title;
+                    this.content.A = res.data.result.a;
+                    this.content.B = res.data.result.b;
+                    this.content.C = res.data.result.c;
+                    this.content.D = res.data.result.d;
+                })
+            }
+        }
+    });
+
+
+</script>
+
+<style>
+    body {
+        margin-left: 7px;
+        font-size: 16px;
+    }
+
+    div {
+        /*border: 1px solid #ddd;*/
+        word-wrap: break-word; /*超出部分自动换行*/
+        border-radius: 16px;
+    }
+
+    #title {
+        font-size: 20px;
+    }
+</style>
+</html>

@@ -1,6 +1,7 @@
 package com.xiaocong.questionbank_xiaocong.service;
 
 
+import com.xiaocong.questionbank_xiaocong.model.po.Questions;
 import com.xiaocong.questionbank_xiaocong.model.po.RestResponse;
 
 public interface QuestionsService {
@@ -41,4 +42,8 @@ public interface QuestionsService {
      * @return
      */
     public RestResponse resettingAll();
+
+    public RestResponse addQuestions(Questions questions);
+
+    public RestResponse parseString(String str);
 }
