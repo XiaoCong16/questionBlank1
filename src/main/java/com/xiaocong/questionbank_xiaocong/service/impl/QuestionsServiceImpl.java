@@ -126,11 +126,13 @@ public class QuestionsServiceImpl implements QuestionsService {
     }
 
     public RestResponse parseString(String str) {
+        int index0 = str.indexOf(" (");
         int indexA = str.indexOf("A.");
         int indexB = str.indexOf("B.");
         int indexC = str.indexOf("C.");
         int indexD = str.indexOf("D.");
-        String title = str.substring(0, indexA);
+        String title = str.substring(0, index0);
+        String result = str.substring(index0+2,index0+3);
         String A = str.substring(indexA, indexB);
         String B = str.substring(indexB, indexC);
         String C = str.substring(indexC, indexD);
@@ -141,8 +143,10 @@ public class QuestionsServiceImpl implements QuestionsService {
         questions.setB(B);
         questions.setC(C);
         questions.setD(D);
-        System.out.println(str);
-//        System.out.println(str);
+        questions.setResult(result);
+
+        System.out.println(index0);
+        System.out.println(questions);
         return new RestResponse(questions);
     }
 }
